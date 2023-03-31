@@ -53,6 +53,8 @@ class WeatherDetailFragment : BaseFragment<FragmentWeatherDetailsBinding>() {
                         val weatherDescription = weatherData?.weather?.get(0)?.description
                         val mainData = weatherData?.main
                         val temperature = mainData?.temp
+                        val mintemp = mainData?.temp_min
+                        val maxtemp = mainData?.temp_max
                         val windSpeed = weatherData?.wind?.speed
                         val humidity = weatherData?.main?.humidity
                         val name = weatherData?.name
@@ -60,6 +62,8 @@ class WeatherDetailFragment : BaseFragment<FragmentWeatherDetailsBinding>() {
                         binding?.tvWeather?.text = weatherDescription
                         binding?.tvName?.text = name
                         binding?.tvTempeature?.text = String.format("%.0f°C", temperature)
+                        binding?.tvTempMin?.text = "Min Temp: ${String.format("%.0f°C", mintemp)}"
+                        binding?.tvTempMax?.text = "Max Temp: ${String.format("%.0f°C", maxtemp)}"
                         binding?.windSpeed?.text = "Wind Speed $windSpeed km/h"
                         binding?.tvhumidity?.text = "Humidity $humidity %"
 
