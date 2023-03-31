@@ -27,6 +27,7 @@ private val weatherApi: WeatherApi
         try {
             val option = mutableMapOf<String, String>(
                 Pair("q", query),
+                Pair("units","metric"),
                 Pair("appid", Configs.AppId)
             )
             return weatherApi.getWeatherByCityStateCode(option)

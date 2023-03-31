@@ -38,6 +38,7 @@ class WeatherViewModel @Inject constructor(
                     val option = mutableMapOf<String, String>(
                         Pair("lat", lat.toString()),
                         Pair("lon", lng.toString()),
+                        Pair("units","metric"),
                         Pair("appid", Configs.AppId)
                     )
                     val response =
