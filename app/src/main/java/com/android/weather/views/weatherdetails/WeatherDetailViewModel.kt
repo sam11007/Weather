@@ -1,4 +1,4 @@
-package com.android.weather.views.restaurant
+package com.android.weather.views.weatherdetails
 
 
 import androidx.lifecycle.LiveData
@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.weather.network.model.WeatherByCurrentLocModel
 import com.android.weather.repository.WeatherRepository
-import com.android.weather.utils.Configs
 import com.android.weather.utils.networkUtil.NetworkHelper
 import com.android.weather.utils.networkUtil.NetworkResource
 

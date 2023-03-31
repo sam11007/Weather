@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.android.weather.views.restaurant.WeatherDetailViewModel" />
+            type="com.android.weather.views.weatherdetails.WeatherDetailViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

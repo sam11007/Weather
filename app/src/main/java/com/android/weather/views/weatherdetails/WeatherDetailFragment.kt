@@ -1,13 +1,11 @@
-package com.android.weather.views.restaurant
+package com.android.weather.views.weatherdetails
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.android.weather.R
 import com.android.weather.databinding.FragmentWeatherDetailsBinding
-import com.android.weather.utils.WEATHER_TYPE
 import com.android.weather.utils.networkUtil.NetworkResource
 
 
