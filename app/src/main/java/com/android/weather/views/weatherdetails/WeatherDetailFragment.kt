@@ -37,7 +37,7 @@ class WeatherDetailFragment : BaseFragment<FragmentWeatherDetailsBinding>() {
             val cityName = binding?.etCityName?.text.toString()
 //            val  stateCode = binding?.etStateCode?.text.toString()
 //            val  countryCode  = binding?.etCountryCode?.text.toString()
-            viewModel.onSearch(cityName)
+         viewModel.findGeoLoc(cityName)
         }
     }
     private fun dataObserver() {
@@ -78,5 +78,25 @@ class WeatherDetailFragment : BaseFragment<FragmentWeatherDetailsBinding>() {
                 }
             }
         }
+        viewModel.findGeoLoc.observe(viewLifecycleOwner) { response ->
+            response?.let {
+                when (it) {
+                    is NetworkResource.Loading -> {
+                        dialog.show()
+                    }
+                    is NetworkResource.Success -> {
+                        dialog.dismiss()
+                        viewModel.onSearch(response.data?.get(0))
+                    }
+                    is NetworkResource.Error -> {
+                        dialog.dismiss()
+                        showToast(response.message ?: "ERROR")
+                    }
+                    is NetworkResource.LoadingEnd -> {
+                        dialog.dismiss()
+                    }
+                }
+        }
     }
+}
 }
