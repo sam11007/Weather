@@ -62,7 +62,10 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(), LocationListener
                 requestPermissions(permissionArrays, 101)
             }
         }
-
+        binding?.search?.setOnClickListener{
+            val cityName = binding?.etCityName?.text.toString()
+            weatherViewModel.findGeoLoc(cityName)
+        }
     }
     private fun checkIfAlreadyhavePermission(): Boolean {
         val result = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -173,6 +176,33 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(), LocationListener
                         binding?.windSpeed?.text = "Wind Speed $windSpeed km/h"
                         binding?.tvhumidity?.text = "Humidity $humidity %"
 
+                    }
+                    is NetworkResource.Error -> {
+                        dialog.dismiss()
+                        showToast(response.message ?: "ERROR")
+                    }
+                    is NetworkResource.LoadingEnd -> {
+                        dialog.dismiss()
+                    }
+                }
+            }
+        }
+        weatherViewModel.findGeoLoc.observe(viewLifecycleOwner) { response ->
+            response?.let {
+                when (it) {
+                    is NetworkResource.Loading -> {
+                        dialog.show()
+                    }
+                    is NetworkResource.Success -> {
+                        dialog.dismiss()
+                       val location = response.data?.get(0)
+                        lng = location?.lon
+                        lat = location?.lat
+                        lng?.let { lng->
+                            lat?.let {  lat->
+                                weatherViewModel.demoApiCall(lng, lat)
+                            }
+                        }
                     }
                     is NetworkResource.Error -> {
                         dialog.dismiss()

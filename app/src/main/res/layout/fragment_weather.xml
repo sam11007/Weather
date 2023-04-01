@@ -8,116 +8,148 @@
             name="viewModel"
             type="com.android.weather.views.weather.WeatherViewModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
         android:background="@color/white">
 
-            <LinearLayout
+        <LinearLayout
+            android:id="@+id/llView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <EditText
+                android:id="@+id/et_cityName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_margin="10dp"
+                android:hint="search by city by converting it to lat long" />
 
-                <androidx.cardview.widget.CardView
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="Search" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llView">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                app:cardBackgroundColor="@color/colorAccent1"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    app:cardBackgroundColor="@color/colorAccent1"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="5dp">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="15dp">
+
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawablePadding="10dp"
+                        android:text=""
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvTempeature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="60sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvWeather"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="30dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:paddingTop="15dp">
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="60dp"
+                        android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/tvName"
+                            android:id="@+id/tvDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:drawablePadding="10dp"
-                            android:text=""
+                            android:gravity="center"
                             android:textColor="@android:color/white"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
+                            android:textSize="18sp" />
 
                         <TextView
-                            android:id="@+id/tvTempeature"
+                            android:id="@+id/windSpeed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="20dp"
+                            android:gravity="center"
                             android:textColor="@android:color/white"
-                            android:textSize="60sp"
-                            android:textStyle="bold" />
+                            android:textSize="14sp" />
 
                         <TextView
-                            android:id="@+id/tvWeather"
+                            android:id="@+id/tvhumidity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="30dp"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
+                            android:paddingBottom="10dp"
                             android:textColor="@android:color/white"
-                            android:textSize="24sp"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginTop="60dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/tvDate"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:textColor="@android:color/white"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:id="@+id/windSpeed"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp"
-                                android:gravity="center"
-                                android:textColor="@android:color/white"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:id="@+id/tvhumidity"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:gravity="center"
-                                android:paddingBottom="10dp"
-                                android:textColor="@android:color/white"
-                                android:textSize="14sp" />
-
-                        </LinearLayout>
+                            android:textSize="14sp" />
 
                     </LinearLayout>
 
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/iconTemp"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_gravity="end|bottom"
-                        android:layout_marginEnd="10dp"
-                        app:lottie_autoPlay="true"
-                        app:lottie_loop="true" />
+                </LinearLayout>
 
-                </androidx.cardview.widget.CardView>
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/iconTemp"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="10dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true" />
 
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.android.weather.network.model.GeoModel
 import com.android.weather.network.model.WeatherByCurrentLocModel
 import com.android.weather.repository.WeatherRepository
 import com.android.weather.utils.Configs
@@ -74,6 +75,54 @@ class WeatherViewModel @Inject constructor(
     private suspend fun updateUI(response: NetworkResource<WeatherByCurrentLocModel.Response>) {
         withContext(Dispatchers.Main) {
             _weatherByCurrentLoc.postValue(response)
+        }
+    }
+
+
+
+    private val _findGeoLoc: MutableLiveData<NetworkResource<List<GeoModel.Response>>> =
+        MutableLiveData()
+    val findGeoLoc: LiveData<NetworkResource<List<GeoModel.Response>>> =
+        _findGeoLoc
+    fun findGeoLoc(cityName: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            updateGEOUI(NetworkResource.Loading())
+            try {
+                if (networkHelper.hasInternet()) {
+
+                    val response =
+                        weatherRespository.getGeoLoc(cityName)
+                    response?.let { weatherRes ->
+                        val res = handleGEOResponse(weatherRes)
+                        updateGEOUI(res)
+                    }
+                    updateGEOUI(NetworkResource.LoadingEnd())
+                } else {
+                    updateGEOUI(NetworkResource.Error("No Internet Connection"))
+                }
+            } catch (ex: Exception) {
+                when (ex) {
+                    is IOException -> updateGEOUI(NetworkResource.Error("Network Failure"))
+                    else -> updateGEOUI(NetworkResource.Error("Conversion Error"))
+                }
+            }
+        }
+    }
+    private fun handleGEOResponse(response: Response<List<GeoModel.Response>>)
+            : NetworkResource<List<GeoModel.Response>> {
+        if (response.isSuccessful) {
+            response.body()?.let { resultResponse ->
+                return NetworkResource.Success(resultResponse)
+            }
+        }else{
+            return  NetworkResource.Error(response.errorBody()?.string() ?: "ERROR")
+        }
+        return NetworkResource.Error(response.message())
+    }
+
+    private suspend fun updateGEOUI(response: NetworkResource<List<GeoModel.Response>>) {
+        withContext(Dispatchers.Main) {
+            _findGeoLoc.postValue(response)
         }
     }
 }
